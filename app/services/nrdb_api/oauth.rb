@@ -15,9 +15,8 @@ module NrdbApi
     end
 
     def self.get_access_token(grant_code)
-      Rails.logger.info(grant_token_uri(grant_code))
       JSON.parse(
-        Faraday.post(grant_token_uri(grant_code), {
+        Faraday.post(Rails.configuration.auth_token_url, {
           client_id: Rails.application.credentials.oauth[:client_id],
           client_secret: Rails.application.credentials.oauth[:client_secret],
           redirect_uri: Rails.application.credentials.oauth[:redirect_uri],
@@ -37,31 +36,6 @@ module NrdbApi
           refresh_token: refresh_token 
         }).body
       ).with_indifferent_access
-    end
-
-    private
-
-    def self.grant_token_uri(code)
-      URI(Rails.configuration.auth_token_url).tap do |uri|
-        uri.query = {
-          client_id: Rails.application.credentials.oauth[:client_id],
-          client_secret: Rails.application.credentials.oauth[:client_secret],
-          redirect_uri: Rails.application.credentials.oauth[:redirect_uri],
-          grant_type: :authorization_code,
-          code: code
-        }.to_query
-      end.to_s
-    end
-
-    def self.refresh_token_uri(refresh_token)
-      URI(Rails.configuration.auth_token_url).tap do |uri|
-        uri.query = {
-          client_id: Rails.application.credentials.oauth[:client_id],
-          client_secret: Rails.application.credentials.oauth[:client_secret],
-          grant_type: :refresh_token,
-          refresh_token: refresh_token 
-        }.to_query
-      end.to_s
     end
   end
 end
