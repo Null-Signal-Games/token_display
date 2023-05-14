@@ -1,0 +1,28 @@
+<a href="<%= NrdbApi::Oauth.auth_uri() %>">Log In again to your new NRDB account to access the token for the API.</a>
+
+<div>
+TODO: add logout link.
+</div>
+
+<h1>Token Data</h1>
+<div>
+<pre>
+<%= @token_data_json %>
+</pre>
+</div>
+
+<h2>Expiration</h2>
+<div>
+Token expires at <%= @token_expiration %>
+</div>
+
+<h2>Making Private API calls</h2>
+Add the following header to your call to access private endpoints:
+
+<pre>
+Authorization: Bearer <%= @access_token %>
+</pre>
+
+<pre>
+curl -v http://localhost:10000/api/v3/private/user -H 'Authorization: Bearer <%= @access_token %>'
+</pre>

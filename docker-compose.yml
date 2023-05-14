@@ -1,0 +1,13 @@
+services:
+  web:
+    build: .
+    ports:
+      - "3400:3000"
+    networks:
+      - null_signal
+    volumes:
+      - .:/usr/src/app
+
+networks:
+  null_signal:
+    external: true
