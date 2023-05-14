@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   root "home#index"
   get '/callback', to: 'home#callback'
   get '/show_token', to: 'home#show_token'
+  get '/refresh_token', to: 'home#refresh_token'
 end

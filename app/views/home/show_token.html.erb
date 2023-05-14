@@ -1,9 +1,5 @@
 <a href="<%= NrdbApi::Oauth.auth_uri() %>">Log In again to your new NRDB account to access the token for the API.</a>
 
-<div>
-TODO: add logout link.
-</div>
-
 <h1>Token Data</h1>
 <div>
 <pre>
@@ -14,6 +10,10 @@ TODO: add logout link.
 <h2>Expiration</h2>
 <div>
 Token expires at <%= @token_expiration %>
+</div>
+<div>
+<%= @refresh_token %> / 
+<a href="/refresh_token?refresh_token=<%= @refresh_token %>">Refresh Token</a>
 </div>
 
 <h2>Making Private API calls</h2>

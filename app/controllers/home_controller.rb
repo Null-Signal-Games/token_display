@@ -22,6 +22,15 @@ class HomeController < ApplicationController
     # TODO(plural): Pull the expiration time out of the JWT instead of this hack.  :)
     @token_expiration = Time.now + (@token_data['expires_in'].to_i).seconds
     @access_token = @token_data['access_token']
+    @refresh_token = @token_data['refresh_token']
   end
 
+  def refresh_token
+    refresh_token = params.require(:refresh_token)
+    if not refresh_token
+      return redirect_to controller: 'home', action: 'index'
+    end 
+    token_data = NrdbApi::Oauth.refresh_access_token(refresh_token)
+    redirect_to controller: 'home', action: 'show_token', token_data: token_data
+  end
 end
