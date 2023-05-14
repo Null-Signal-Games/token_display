@@ -1,3 +1,5 @@
+require 'jwt'
+
 class HomeController < ApplicationController
 
   def index
@@ -19,10 +21,11 @@ class HomeController < ApplicationController
     @token_data = JSON.parse(token_param.to_json)
     @token_data_json = JSON.pretty_generate(@token_data)
 
-    # TODO(plural): Pull the expiration time out of the JWT instead of this hack.  :)
-    @token_expiration = Time.now + (@token_data['expires_in'].to_i).seconds
     @access_token = @token_data['access_token']
     @refresh_token = @token_data['refresh_token']
+
+    @decoded_access_token = JWT.decode @access_token, nil, false
+    @decoded_access_token_json = JSON.pretty_generate(JSON.parse(@decoded_access_token.to_json))
   end
 
   def refresh_token

@@ -9,10 +9,11 @@
 
 <h2>Expiration</h2>
 <div>
-Token expires at <%= @token_expiration %>
+Token Issued at <%= Time.at(@decoded_access_token[0]['iat'].to_i)%>
+<br />
+Token expires at <%= Time.at(@decoded_access_token[0]['exp'].to_i)%>
 </div>
 <div>
-<%= @refresh_token %> / 
 <a href="/refresh_token?refresh_token=<%= @refresh_token %>">Refresh Token</a>
 </div>
 
@@ -26,3 +27,8 @@ Authorization: Bearer <%= @access_token %>
 <pre>
 curl -v http://localhost:10000/api/v3/private/user -H 'Authorization: Bearer <%= @access_token %>'
 </pre>
+
+<h2>Token Details</h2>
+<div>
+<pre><%= @decoded_access_token_json %></pre>
+</div>
