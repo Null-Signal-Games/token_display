@@ -16,6 +16,9 @@ Token expires at <%= Time.at(@decoded_access_token[0]['exp'].to_i)%>
 <div>
 <a href="/refresh_token?refresh_token=<%= @refresh_token %>">Refresh Token</a>
 </div>
+<div>
+<a href="/logout?refresh_token=<%= @refresh_token %>">Log Out</a>
+</div>
 
 <h2>Making Private API calls</h2>
 Add the following header to your call to access private endpoints:

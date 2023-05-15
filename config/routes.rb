@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get '/callback', to: 'home#callback'
   get '/show_token', to: 'home#show_token'
   get '/refresh_token', to: 'home#refresh_token'
+  get '/logout', to: 'home#logout'
 end

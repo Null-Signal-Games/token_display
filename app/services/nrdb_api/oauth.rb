@@ -26,16 +26,23 @@ module NrdbApi
       ).with_indifferent_access
     end
 
-    # TODO(plural):  Add support for refreshing tokens.
     def self.refresh_access_token(refresh_token)
       JSON.parse(
         Faraday.post(Rails.configuration.auth_token_url, {
           client_id: Rails.application.credentials.oauth[:client_id],
           client_secret: Rails.application.credentials.oauth[:client_secret],
           grant_type: :refresh_token,
-          refresh_token: refresh_token 
+          refresh_token: refresh_token
         }).body
       ).with_indifferent_access
+    end
+
+    def self.logout(refresh_token)
+      response = Faraday.post(Rails.configuration.logout_url, {
+          client_id: Rails.application.credentials.oauth[:client_id],
+          client_secret: Rails.application.credentials.oauth[:client_secret],
+          refresh_token: refresh_token
+        }).body
     end
   end
 end

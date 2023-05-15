@@ -32,8 +32,18 @@ class HomeController < ApplicationController
     refresh_token = params.require(:refresh_token)
     if not refresh_token
       return redirect_to controller: 'home', action: 'index'
-    end 
+    end
     token_data = NrdbApi::Oauth.refresh_access_token(refresh_token)
     redirect_to controller: 'home', action: 'show_token', token_data: token_data
   end
+
+  def logout
+    refresh_token = params.require(:refresh_token)
+    if not refresh_token
+      return redirect_to controller: 'home', action: 'index'
+    end
+    NrdbApi::Oauth.logout(refresh_token)
+    redirect_to controller: 'home', action: 'index'
+  end
+
 end

@@ -62,4 +62,5 @@ Rails.application.configure do
   config.auth_login_url = 'http://localhost:8080/realms/nullsignal/protocol/openid-connect/auth'
   # Different because this is server to server, not throught the browser.
   config.auth_token_url = 'http://local_keycloak:8080/realms/nullsignal/protocol/openid-connect/token'
+  config.logout_url = 'http://local_keycloak:8080/realms/nullsignal/protocol/openid-connect/logout'
 end
