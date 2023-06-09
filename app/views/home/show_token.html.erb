@@ -31,7 +31,24 @@ Authorization: Bearer <%= @access_token %>
 curl -v http://localhost:10000/api/v3/private/user -H 'Authorization: Bearer <%= @access_token %>' && echo ""
 </pre>
 
+<div>
+<input type="text" value="<%= @access_token %>" id="token">
+<button onclick="copyToken()">Copy token</button>
+</div>
+
 <h2>Token Details</h2>
 <div>
 <pre><%= @decoded_access_token_json %></pre>
 </div>
+<script>
+function copyToken() {
+  // Get the text field
+  var tokenElement = document.getElementById("token");
+
+  // Select the text field
+  tokenElement.select();
+  tokenElement.setSelectionRange(0, 99999);
+
+  navigator.clipboard.writeText(tokenElement.value);
+}
+</script>
